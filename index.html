@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Montgomerie Game Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14201b;
+  --turf:#1e6b4e;
+  --turf-dark:#14503a;
+  --water:#1e5f8a;
+  --heat:#c1442e;
+  --sand:#e9dfc9;
+  --paper:#faf7f0;
+  --line:#d8d2c4;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Barlow',-apple-system,'Segoe UI',sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  font-size:17px;
+  line-height:1.45;
+}
+h1,h2,h3,.disp{font-family:'Barlow Condensed','Arial Narrow',sans-serif;text-transform:uppercase;letter-spacing:.03em}
+
+/* header */
+header{background:var(--turf-dark);color:var(--sand);padding:22px 18px 18px}
+header .kicker{font-size:13px;letter-spacing:.14em;text-transform:uppercase;opacity:.75;font-weight:600}
+header h1{font-size:34px;line-height:1.05;color:#fff;margin:4px 0 6px}
+header .meta{font-size:14px;opacity:.85}
+
+/* sticky nav */
+nav{position:sticky;top:0;z-index:10;display:flex;background:var(--ink);overflow-x:auto}
+nav a{flex:1 0 auto;text-align:center;color:var(--sand);text-decoration:none;padding:12px 14px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;text-transform:uppercase;letter-spacing:.05em;border-bottom:3px solid transparent;white-space:nowrap}
+nav a.hot{color:#f4a08c}
+
+main{padding:0 14px 60px;max-width:560px;margin:0 auto}
+section{padding-top:26px}
+h2{font-size:26px;border-bottom:3px solid var(--ink);padding-bottom:6px;margin-bottom:14px}
+h2 .sub{font-family:'Barlow',sans-serif;text-transform:none;letter-spacing:0;font-size:14px;font-weight:500;color:#5c6660;float:right;margin-top:10px}
+
+/* rules card */
+.rules{background:var(--ink);color:var(--paper);border-radius:12px;padding:16px;margin-bottom:8px}
+.rules h3{color:var(--sand);font-size:19px;margin-bottom:8px}
+.rules p{font-size:15.5px;margin-bottom:10px}
+.rules p:last-child{margin-bottom:0}
+.rules strong{color:#8fd4b4}
+
+/* heat card */
+.heatcard{background:#fff;border:2px solid var(--heat);border-radius:12px;padding:16px;margin:10px 0}
+.heatcard h3{color:var(--heat);font-size:19px;margin-bottom:8px}
+.heatcard p{font-size:15.5px;margin-bottom:9px}
+.heatcard p:last-child{margin-bottom:0}
+.stop{background:var(--heat);color:#fff;border-radius:8px;padding:11px 13px;font-size:15px;font-weight:500;margin-top:10px}
+
+/* bag strip */
+.bag{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:12px 0 4px}
+.bag div{background:#fff;border:1.5px solid var(--line);border-radius:9px;text-align:center;padding:8px 2px}
+.bag .c{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px}
+.bag .y{font-size:13px;color:#5c6660}
+.bag .hero{border-color:var(--turf);background:#eef6f1}
+
+/* warm-up steps */
+.step{display:flex;gap:12px;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:14px;margin-bottom:10px}
+.step .t{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;color:var(--turf);min-width:52px;text-align:center;border-right:2px solid var(--sand);padding-right:10px}
+.step .t b{display:block;font-size:22px;color:var(--ink)}
+.step h4{font-size:16.5px;margin-bottom:3px}
+.step p{font-size:15px;color:#3a443f}
+.step p em{color:var(--turf);font-style:normal;font-weight:600}
+
+/* hole cards */
+.hole{background:#fff;border:1.5px solid var(--line);border-radius:12px;margin-bottom:12px;overflow:hidden}
+.hole.danger{border-color:var(--water);border-width:2px}
+.hrow{display:flex;align-items:baseline;gap:10px;padding:12px 14px 4px}
+.hnum{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:34px;line-height:1;color:var(--turf)}
+.hole.danger .hnum{color:var(--water)}
+.hyds{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:19px}
+.hpar{font-size:13.5px;color:#5c6660}
+.htarget{margin-left:auto;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;background:var(--sand);border-radius:6px;padding:3px 9px}
+.hname{padding:0 14px;font-size:13.5px;font-weight:600;color:var(--water);text-transform:uppercase;letter-spacing:.06em}
+.seq{display:flex;flex-wrap:wrap;gap:5px;padding:9px 14px 4px}
+.seq span{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15.5px;background:var(--turf);color:#fff;border-radius:6px;padding:4px 10px}
+.seq span.w{background:var(--water)}
+.seq span.p{background:var(--sand);color:var(--ink)}
+.hnote{padding:6px 14px 13px;font-size:15px;color:#3a443f}
+.hnote strong{color:var(--heat)}
+
+.turnbox{background:var(--sand);border-radius:12px;padding:14px;margin:14px 0;font-size:15.5px}
+.turnbox b{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-size:17px;letter-spacing:.04em}
+
+.finish{background:var(--turf-dark);color:var(--sand);border-radius:12px;padding:16px;margin-top:18px;font-size:15.5px}
+.finish b{color:#fff}
+footer{text-align:center;font-size:13px;color:#8a9089;padding:26px 0 10px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="kicker">Solo round &middot; Green tees &middot; 45&deg;C</div>
+  <h1>The Montgomerie<br>Game Plan</h1>
+  <div class="meta">6,174 yds &middot; Par 72 &middot; Your target: <b>break 115</b> (great day: 110)</div>
+</header>
+
+<nav>
+  <a href="#warmup">Warm-up</a>
+  <a href="#rules">Rules</a>
+  <a href="#front">Front 9</a>
+  <a href="#back">Back 9</a>
+  <a href="#heat" class="hot">Heat</a>
+</nav>
+
+<main>
+
+<!-- ================= WARM-UP ================= -->
+<section id="warmup">
+  <h2>Range Warm-up <span class="sub">~25 min &middot; ~28 balls</span></h2>
+  <p style="font-size:15px;color:#5c6660;margin-bottom:12px">Goal: rehearse, don't fix. In this heat, the warm-up should leave you fresh, not cooked. Drink 500ml <b>before</b> you start. Find shade between sets.</p>
+
+  <div class="step">
+    <div class="t">5<br>min<b>1</b></div>
+    <div>
+      <h4>Wake the body (no balls)</h4>
+      <p>10 slow hip hinges (your setup move) &middot; 8 standing 90/90-style hip openers each side &middot; 10 arm circles each way &middot; 8 gentle trunk rotations, club across chest. <em>Nothing that loads the lower back.</em></p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="t">5<br>min<b>2</b></div>
+    <div>
+      <h4>Putting green first</h4>
+      <p>Ladder drill to 10 / 20 / 30 ft to learn today's speed &mdash; greens here run <em>fast (9.5+)</em>. Finish with 5 gate putts from 3 ft. This is the most valuable 5 minutes of the day.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="t">6<br>balls<b>3</b></div>
+    <div>
+      <h4>SW half swings</h4>
+      <p>3 to ~40y, 3 to full 80y. Feel: <em>glutes back on the imaginary wall</em>, brush the mat after the ball.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="t">5<br>balls<b>4</b></div>
+    <div>
+      <h4>PW &mdash; your 100 club</h4>
+      <p>Full smooth swings. One rehearsal with the bag-behind-glutes feel before each ball.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="t">6<br>balls<b>5</b></div>
+    <div>
+      <h4>7-iron &mdash; your 130 club</h4>
+      <p>This is tomorrow's approach club. Pick a target, full routine each ball. <em>Ball first, turf after.</em> If two in a row are fat: drop to static lead-side swings for the rest of the set.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="t">6<br>balls<b>6</b></div>
+    <div>
+      <h4>5-wood &mdash; the workhorse</h4>
+      <p>You'll hit this 20+ times on course. Sweep it &mdash; think <em>shallow brush, not dig</em>. Aim at a left-edge target and watch the drift right. That drift is your shot; learn today's version of it.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="t">4<br>balls<b>7</b></div>
+    <div>
+      <h4>Driver at 80%</h4>
+      <p>Four swings, smooth tempo. You're finding contact, not distance. If it curves right, aim further left on course &mdash; don't chase a fix now.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="t">2<br>balls<b>8</b></div>
+    <div>
+      <h4>Walk-off shots</h4>
+      <p>One 7i, one SW, full routine, then stop &mdash; <em>end on a good one and keep it.</em> Head for shade, drink, first tee.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RULES ================= -->
+<section id="rules">
+  <h2>The 5 Rules</h2>
+  <div class="rules">
+    <h3>Carry these all day</h3>
+    <p><strong>1. Personal par is +2.</strong> Every bogey is a birdie in your book. Score vs 108, not 72.</p>
+    <p><strong>2. Aim left, drift right.</strong> Left edge of every fairway, left-centre of every green &mdash; except where water is right.</p>
+    <p><strong>3. The water rule.</strong> Never attempt a carry over water longer than a comfy 7-iron (130). Lay up to a full PW or SW number instead. 14 lakes out there &mdash; this rule is worth 6&ndash;10 shots.</p>
+    <p><strong>4. Middle of the green, always.</strong> Pins don't exist today. Lag every first putt to a 3-ft circle.</p>
+    <p><strong>5. 7-iron owns 130.</strong> The 6i stays in the bag all day. 5Hy only for long shots off tight or scruffy lies.</p>
+  </div>
+
+  <div class="bag">
+    <div class="hero"><div class="c">DR</div><div class="y">160</div></div>
+    <div class="hero"><div class="c">5W</div><div class="y">145</div></div>
+    <div><div class="c">5Hy</div><div class="y">130</div></div>
+    <div class="hero"><div class="c">7i</div><div class="y">130</div></div>
+    <div><div class="c">8i</div><div class="y">120</div></div>
+    <div><div class="c">9i</div><div class="y">110</div></div>
+    <div class="hero"><div class="c">PW</div><div class="y">100</div></div>
+    <div class="hero"><div class="c">SW</div><div class="y">80</div></div>
+  </div>
+  <p style="font-size:13.5px;color:#5c6660">Hot air = extra carry. Expect roughly half a club more than usual.</p>
+</section>
+
+<!-- ================= FRONT 9 ================= -->
+<section id="front">
+  <h2>Front 9 <span class="sub">3,157 yds</span></h2>
+
+  <div class="hole">
+    <div class="hrow"><div class="hnum">1</div><div class="hyds">340y</div><div class="hpar">Par 4 &middot; HCP 16</div><div class="htarget">Target 6</div></div>
+    <div class="seq"><span>DR</span><span>5W</span><span class="p">Pitch</span><span class="p">2 putts</span></div>
+    <div class="hnote">Wide opener. Nerves + heat = 80% tempo. A 5W off the tee is completely fine too.</div>
+  </div>
+
+  <div class="hole">
+    <div class="hrow"><div class="hnum">2</div><div class="hyds">375y</div><div class="hpar">Par 4 &middot; HCP 12</div><div class="htarget">Target 6</div></div>
+    <div class="seq"><span>DR</span><span>5W</span><span>SW ~70</span></div>
+    <div class="hnote">Third shot is a stock sand wedge &mdash; your practiced number.</div>
+  </div>
+
+  <div class="hole">
+    <div class="hrow"><div class="hnum">3</div><div class="hyds">436y</div><div class="hpar">Par 4 &middot; HCP 4</div><div class="htarget">Target 7</div></div>
+    <div class="seq"><span>DR</span><span>5W</span><span>7i</span></div>
+    <div class="hnote">Longest par 4 on the front &mdash; it's a par 5 for you. Three perfect shots reach; plan for four.</div>
+  </div>
+
+  <div class="hole danger">
+    <div class="hrow"><div class="hnum">4</div><div class="hyds">496y</div><div class="hpar">Par 5 &middot; HCP 10</div><div class="htarget">Target 7</div></div>
+    <div class="hname">"The Snake" &mdash; double fairway</div>
+    <div class="seq"><span>DR</span><span>5W</span><span>5W</span><span class="p">Pitch</span></div>
+    <div class="hnote">Take the <strong>right fairway</strong> line &mdash; it fits your fade. The centre bunkers eat mishit seconds; ignore the direct left route entirely.</div>
+  </div>
+
+  <div class="hole">
+    <div class="hrow"><div class="hnum">5</div><div class="hyds">312y</div><div class="hpar">Par 4 &middot; HCP 14</div><div class="htarget">Target 5&ndash;6</div></div>
+    <div class="seq"><span>DR</span><span>5W</span><span class="p">Chip</span></div>
+    <div class="hnote">Scoring hole. Driver + 5W gets you pin high.</div>
+  </div>
+
+  <div class="hole">
+    <div class="hrow"><div class="hnum">6</div><div class="hyds">165y</div><div class="hpar">Par 3 &middot; HCP 6</div><div class="htarget">Target 4&ndash;5</div></div>
+    <div class="seq"><span>7i</span><span>SW pitch</span><span class="p">Putt</span></div>
+    <div class="hnote">Beyond your clubs &mdash; play it as a two-shotter <strong>on purpose</strong>. A planned 4 beats a topped 5-wood.</div>
+  </div>
+
+  <div class="hole">
+    <div class="hrow"><div class="hnum">7</div><div class="hyds">361y</div><div class="hpar">Par 4 &middot; HCP 8</div><div class="htarget">Target 6</div></div>
+    <div class="seq"><span>DR</span><span>5W</span><span>SW ~55</span></div>
+    <div class="hnote">Standard operating procedure. Left edge, let it drift.</div>
+  </div>
+
+  <div class="hole">
+    <div class="hrow"><div class="hnum">8</div><div class="hyds">148y</div><div class="hpar">Par 3 &middot; HCP 18</div><div class="htarget">Target 4</div></div>
+    <div class="seq"><span>5W</span></div>
+    <div class="hnote">Perfect 5-wood number. Centre-left, let it release. Easiest hole on the card.</div>
+  </div>
+
+  <div class="hole danger">
+    <div class="hrow"><div class="hnum">9</div><div class="hyds">524y</div><div class="hpar">Par 5 &middot; HCP 2</div><div class="htarget">Target 7&ndash;8</div></div>
+    <div class="hname">Water all down the left</div>
+    <div class="seq"><span class="w">DR</span><span class="w">5W</span><span class="w">5W</span><span class="p">SW</span></div>
+    <div class="hnote"><strong>Aim centre-right on every shot</strong> and let the fade fall away from the lake. Never aim the left edge here. A big number is allowed &mdash; it's the #2 hole.</div>
+  </div>
+
+  <div class="turnbox"><b>The turn:</b> drink, salty snack, sunscreen, cold towel. Honest self-check &mdash; dizzy, cramping, or headachy? Nine good holes beats eighteen survived. The course is here next week.</div>
+</section>
+
+<!-- ================= BACK 9 ================= -->
+<section id="back">
+  <h2>Back 9 <span class="sub">3,017 yds</span></h2>
+
+  <div class="hole">
+    <div class="hrow"><div class="hnum">10</div><div class="hyds">329y</div><div class="hpar">Par 4 &middot; HCP 9</div><div class="htarget">Target 6</div></div>
+    <div class="seq"><span>DR</span><span>5W</span><span class="p">Chip</span></div>
+    <div class="hnote">Same recipe. Easy tempo restart after the break.</div>
+  </div>
+
+  <div class="hole">
+    <div class="hrow"><div class="hnum">11</div><div class="hyds">312y</div><div class="hpar">Par 4 &middot; HCP 11</div><div class="htarget">Target 5&ndash;6</div></div>
+    <div class="seq"><span>DR</span><span>5W</span><span class="p">Chip</span></div>
+    <div class="hnote">Scoring hole #2. Position over power.</div>
+  </div>
+
+  <div class="hole">
+    <div class="hrow"><div class="hnum">12</div><div class="hyds">400y</div><div class="hpar">Par 4 &middot; HCP 5</div><div class="htarget">Target 6&ndash;7</div></div>
+    <div class="seq"><span>DR</span><span>5W</span><span>9i</span></div>
+    <div class="hnote">A three-shotter without apology. 160 + 145 + 110 = 415 with drift margin.</div>
+  </div>
+
+  <div class="hole danger">
+    <div class="hrow"><div class="hnum">13</div><div class="hyds">139y</div><div class="hpar">Par 3 &middot; HCP 13</div><div class="htarget">Target 4&ndash;5</div></div>
+    <div class="hname">Island green &mdash; the famous one</div>
+    <div class="seq"><span class="w">5W</span><span class="p">or DR @70%</span></div>
+    <div class="hnote">One of the biggest greens in world golf &mdash; the safest "fairway" out there is the putting surface itself. Check the GPS <strong>front</strong> number: carry &le;125 &rarr; commit to 5W at dead centre. Tired or doubting &rarr; driver at 70%. <strong>Full committed swing</strong> &mdash; the only real danger is a tentative fat one. Clear the water = win, wherever it lands.</div>
+  </div>
+
+  <div class="hole">
+    <div class="hrow"><div class="hnum">14</div><div class="hyds">433y</div><div class="hpar">Par 5 &middot; HCP 7</div><div class="htarget">Target 6</div></div>
+    <div class="seq"><span>DR</span><span>5W</span><span>7i</span></div>
+    <div class="hnote">The one par 5 you can reach in regulation-for-you (160+145+130). Best genuine par chance of the day.</div>
+  </div>
+
+  <div class="hole">
+    <div class="hrow"><div class="hnum">15</div><div class="hyds">337y</div><div class="hpar">Par 4 &middot; HCP 15</div><div class="htarget">Target 6</div></div>
+    <div class="seq"><span>DR</span><span>5W</span><span class="p">Chip</span></div>
+    <div class="hnote">Left edge, drift right, chip close.</div>
+  </div>
+
+  <div class="hole">
+    <div class="hrow"><div class="hnum">16</div><div class="hyds">399y</div><div class="hpar">Par 4 &middot; HCP 3</div><div class="htarget">Target 6&ndash;7</div></div>
+    <div class="seq"><span>DR</span><span>5W</span><span>9i</span></div>
+    <div class="hnote">Second-hardest on the back. No hero second shots.</div>
+  </div>
+
+  <div class="hole">
+    <div class="hrow"><div class="hnum">17</div><div class="hyds">109y</div><div class="hpar">Par 3 &middot; HCP 17</div><div class="htarget">Target 3&ndash;4</div></div>
+    <div class="hname">The hand-shaped bunker</div>
+    <div class="seq"><span>9i</span></div>
+    <div class="hnote">Stock 9-iron, centre of green. Don't look at the bunker &mdash; the more you stare, the more magnetic it gets. Cleanest par chance all day.</div>
+  </div>
+
+  <div class="hole danger">
+    <div class="hrow"><div class="hnum">18</div><div class="hyds">559y</div><div class="hpar">Par 5 &middot; HCP 1</div><div class="htarget">Target 8&ndash;9</div></div>
+    <div class="hname">Water left AND right &mdash; hardest hole, hottest moment</div>
+    <div class="seq"><span class="w">5W tee</span><span class="w">5W</span><span class="w">5W</span><span>7i</span><span class="p">Pitch</span></div>
+    <div class="hnote"><strong>No driver.</strong> Five small swings to the fat of the fairway every time. Maximum patience &mdash; anything under 9 here is a genuine win, and even a 9 can cap a great day.</div>
+  </div>
+
+  <div class="finish">
+    <b>Scorecard math:</b> hit the targets and you land at roughly 106&ndash;112. Break 115 = solid. Break 110 in this heat = be proud. Cold drink on the terrace either way.
+  </div>
+</section>
+
+<!-- ================= HEAT ================= -->
+<section id="heat">
+  <h2>Heat Protocol <span class="sub">45&deg;C &mdash; not optional</span></h2>
+
+  <div class="heatcard">
+    <h3>Every hole</h3>
+    <p><b>Drink before you're thirsty:</b> a bottle every 2&ndash;3 holes, alternating water and electrolytes. Start before the 1st tee.</p>
+    <p><b>Cold towel</b> on the neck between shots. Park the buggy in shade whenever it exists.</p>
+    <p><b>Salty snack</b> mid-front and mid-back nine. Sunscreen again at the turn.</p>
+    <p><b>Your back:</b> after any long buggy stretch, 2&ndash;3 slow hip-hinge rehearsals before you swing. Never go seated &rarr; full swing.</p>
+  </div>
+
+  <div class="heatcard">
+    <h3>Stop signals</h3>
+    <p>Cramping &middot; dizziness &middot; nausea &middot; pounding headache &middot; chills or goosebumps in the heat &middot; you notice you've <b>stopped sweating</b>.</p>
+    <div class="stop">Any one of these: round over. Shade, cold towels, drink, clubhouse. No negotiation &mdash; you're playing solo, so you are your own marshal.</div>
+  </div>
+</section>
+
+<footer>Green tees &middot; 6,174y &middot; Par 72 &middot; Aim left, drift right, drink often.</footer>
+
+</main>
+</body>
+</html>
